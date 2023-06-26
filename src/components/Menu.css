@@ -1,0 +1,58 @@
+.menu {
+    position: absolute;
+    top: 0px;
+    right: 0px;
+}
+
+.c input {
+    background-color: #222 !important;
+    color: #df7126 !important;
+    padding: 1px !important;
+}
+
+.dg .main {
+    border: 1px var(--bg-main) solid;
+    background-color: #111;
+}
+
+.dg {
+    font-family: 'Maven Pro', sans-serif !important;
+    margin-right: 0 !important;
+}
+
+.dg li.title {
+    background-color: var(--bg-main) !important;
+    font-size: 1rem !important;
+    border: none  !important;
+    transform: skewX(-24deg);
+    width: 1000px !important;
+}
+
+.dg .main > ul {
+    position: relative;
+    left: -8px;
+    display: flex;
+    flex-direction: column;
+}
+
+.dg .cr {
+    background-color: #111 !important;
+    border: none !important;
+    padding-left: 4px !important;
+    width: 100% !important;
+    margin-left: 4px;
+
+    font-size: 12px !important;
+}
+
+.close-button {
+    display: none !important;
+}
+
+.slider {
+    background-color: #222 !important;
+}
+
+.slider .slider-fg{
+    background-color: var(--bg-secondary) !important;
+}
