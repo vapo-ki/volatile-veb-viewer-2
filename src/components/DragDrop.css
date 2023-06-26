@@ -1,0 +1,101 @@
+.dragdrop-screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+    z-index: 200;
+}
+
+.dragdrop {
+    display: flex;
+    background: rgb(69,40,60);
+    background: radial-gradient(circle, #d73c7d 0%, rgba(0,0,0,0.5) 58%);    justify-content: center;
+    align-items: center;
+    height: 100%;
+    
+}
+
+.dragdrop-box {
+    width: 48em;
+    height: 24em;
+    background-color: #222034;
+    border-radius: 2em;
+
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content:space-evenly;
+    padding-bottom: 1em;
+    padding-top: 2em;
+
+    border: 4px dashed rgba(0,0,0,0.5);
+    margin: 4px;
+
+    transform: skew(0, -4deg);
+
+    animation-name: moveBox;
+    animation-duration: 2s;
+    animation-iteration-count: infinite;
+}
+
+.dragdrop-box--over {
+    border: 4px solid #d73c7d;
+    box-shadow: 4px 4px 3px rgba(0,0,0,0.5);
+}
+
+.dragdrop-svg-box {
+    transition: all 1s ease;
+
+    border-radius: 2em;
+    box-shadow: inset 4px 4px 3px rgba(0,0,0,0.5);
+    background-color: rgba(0,0,0,0.2);
+}
+
+#arrow {
+    animation-name: moveArrow;
+    animation-duration: 1.5s;
+    animation-iteration-count: infinite;
+}
+
+.dragdrop-svg {
+    filter: drop-shadow(2px 2px 0.5rem #d73c7d);
+}
+
+.dragdrop-box > h1 {
+    display: flex;
+    font-size: 3em;
+    color: #d73c7d;
+    font-weight: 500;
+}
+
+.drop-zone {
+    display: none;
+}
+
+@keyframes moveArrow {
+    from {
+        transform: translateY(0px);
+    }
+    50% {
+        transform:translateY(-16px)
+    }
+    to {
+        transform:translateY(0px)
+    }
+}
+
+@keyframes moveBox {
+    from {
+        transform: translateY(0px) skew(0, -4deg);
+        box-shadow: 2px 4px 2px 0px rgba(0,0,0,0.8);
+    }
+    50% {
+        transform:translateY(-16px) skew(0, -4deg);
+        box-shadow: 9px 15px 10px 2px rgba(0,0,0,0.5);
+    }
+    to {
+        transform:translateY(0px) skew(0, -4deg);
+        box-shadow: 2px 4px 2px 0px rgba(0,0,0,0.8);
+    }
+}

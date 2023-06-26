@@ -1,0 +1,48 @@
+.top-left-color {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2em;
+    height: 4em;
+    background-color: var(--bg-main);
+}
+
+header {
+    display:flex;
+    width: auto;
+    height: 5em;
+    
+}
+
+.logo {
+    position: relative;
+    z-index: 100;
+    display: flex;
+    width: 8em;
+    background-color: var(--bg-main);
+    padding-left: 1em;
+    padding-right: 1em;
+    align-items: center;
+
+    transform: skewX(-24deg);
+    border-bottom: 1px solid var(--bg-main);
+
+}
+
+.logo-text {
+    text-align: center;
+    transform: skewX(24deg);
+}
+
+.logo-text > span {
+    font-size:x-large;
+}
+
+.header-tabs-container {
+    display: flex;
+    height: 100%;
+    width: auto;
+
+    position: relative;
+    left: -1.2em;
+}
