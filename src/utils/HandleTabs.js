@@ -4,6 +4,16 @@ export function getLocalModel(modelId) {
             name: "Calvin Freckle",
             path: '../../models/calvin_freckle/calvin_freckle_mcmurray_from_lackadaisy.glb',
             type: "gltf"
+        },
+        {
+            name: "Cosmog",
+            path: '../../models/cosmog.glb',
+            type: "glb"
+        },
+        {
+            name: "Cloud Station",
+            path: '../../models/cloud_station.glb',
+            type: "glb"
         }
     ]
 
@@ -28,11 +38,11 @@ export function getModel(modelData, modelId) {
         }
         
     }
-    console.log(modelData);
+
     return{
         local: false,
         id: modelId,
-        name: modelId,
+        name: "",
         type: suffix,
         paths: modelData.model
     }

@@ -11,6 +11,8 @@ export async function loadModel(scene, model) {
     switch (model.type) {
       case "gltf":
         return await importGLTF_local(scene, model.path);
+      case "glb": 
+      return await importGLTF_local(scene, model.path)
     }
   } else {
     switch (model.type) {
@@ -26,7 +28,6 @@ export async function loadModel(scene, model) {
       const loader = new GLTFLoader();
       const keys = Object.keys(model);
       let gltfName = keys.find((name) => name.endsWith(".glb"));
-      console.log("HELLO?? ", gltfName);
 
       if (!gltfName) {
         gltfName = keys.find((name) => name.endsWith(".gltf"));
@@ -37,7 +38,6 @@ export async function loadModel(scene, model) {
           })
           .then((data) => {
             var newData = data;
-
             for (let i = 0; i < keys.length; i++) {
               const splitBlob = model[keys[i]].split("/");
               newData = newData.replaceAll(String(keys[i]), splitBlob[3]);
@@ -53,9 +53,9 @@ export async function loadModel(scene, model) {
             });
           });
       } else {
-        console.log("STUPIDE: ", model);
         loader.load(model[gltfName], (gltf) => {
           scene.add(gltf.scene);
+          console.log("GLTF: ", gltf);
           resolve(gltf);
         });
       }

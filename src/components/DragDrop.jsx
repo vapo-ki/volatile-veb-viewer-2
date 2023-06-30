@@ -80,15 +80,16 @@ export default function DragDrop({ setModel, onExit }) {
 
   return (
     <div className="dragdrop-screen" >
-      <div className="dragdrop" onClick={onExit}>
+      <div className="dragdrop" onClick={onExit}
+      onDragEnter={(event) => handleDragEnter(event)}
+      onDragOver={(event) => handleDragOver(event)}
+      onDragExit={(event) => handleDragExit(event)}
+      onDrop={(event) => handleOnDrop(event)}>
         <div
           className={
             isDragging ? "dragdrop-box dragdrop-box--over" : "dragdrop-box"
           }
-          onDragEnter={(event) => handleDragEnter(event)}
-          onDragOver={(event) => handleDragOver(event)}
-          onDragExit={(event) => handleDragExit(event)}
-          onDrop={(event) => handleOnDrop(event)}
+          
         >
           <div className="dragdrop-svg-box">{dragButton()}</div>
           <h1>Drag 'n' Drop your file here</h1>
