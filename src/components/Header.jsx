@@ -4,7 +4,6 @@ import HeaderTab from "./HeaderTab";
 import HeaderTabAdd from "./HeaderTabAdd";
 
 export default function Header({handleTabButton, handleAddButton, modelList}) {
-  console.log(modelList);
   return (
     <>
       <div className="top-left-color" />

@@ -22,7 +22,6 @@ function Viewer({ model, setModel, setCanvas}) {
 
     loadModel(canvas.scene, model)
     .then((res) => {
-      console.log("res: ", res);
       setModelInstance(res)
       canvas.mixer = new THREE.AnimationMixer(res.scene)
       res["type"] = model.type

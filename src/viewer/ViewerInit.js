@@ -12,6 +12,7 @@ export default class ViewerInit {
     this.isTab = isTab;
     this.stats = undefined;
     this.controls = undefined;
+    this.gridHelper = undefined;
 
     this.ambientLight = undefined;
     this.directionalLight = undefined;
@@ -25,6 +26,7 @@ export default class ViewerInit {
   initialize() {
     //Base
     this.scene = new THREE.Scene();
+    this.scene.background = new THREE.Color(0x000000)
 
     if (this.isTab) {
       this.camera = new THREE.PerspectiveCamera(25, 96 / 78, 0.001, 100);
@@ -78,8 +80,8 @@ export default class ViewerInit {
 
     //Grid
     if (!this.isTab) {
-      const gridHelper = new THREE.GridHelper(20, 20);
-      this.scene.add(gridHelper);
+      this.gridHelper = new THREE.GridHelper(20, 20);
+      this.scene.add(this.gridHelper);
     }
 
     //Controls

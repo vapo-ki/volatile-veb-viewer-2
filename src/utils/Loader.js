@@ -5,14 +5,12 @@ import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 export async function loadModel(scene, model) {
   if (!model) return;
 
-  console.log(model);
-
   if (model.local) {
     switch (model.type) {
       case "gltf":
         return await importGLTF_local(scene, model.path);
-      case "glb": 
-      return await importGLTF_local(scene, model.path)
+      case "glb":
+        return await importGLTF_local(scene, model.path);
     }
   } else {
     switch (model.type) {
@@ -55,7 +53,6 @@ export async function loadModel(scene, model) {
       } else {
         loader.load(model[gltfName], (gltf) => {
           scene.add(gltf.scene);
-          console.log("GLTF: ", gltf);
           resolve(gltf);
         });
       }
@@ -90,19 +87,14 @@ export async function loadModel(scene, model) {
           var newMtl = "";
           newMtl = data.replaceAll("\\", "/");
           newMtl = newMtl.replaceAll("//", "/");
-          console.log(model);
           for (let i = 0; i < keys.length; i++) {
             const splitBlob = model[keys[i]].split("/");
-            console.log(splitBlob[3]);
-            console.log(keys[i]);
             newMtl = newMtl.replaceAll(String(keys[i]), splitBlob[3]);
           }
-          console.log(newMtl);
           return URL.createObjectURL(new Blob([newMtl]));
         })
         .then((blob) => {
           model[mtlName] = blob;
-          console.log(model);
 
           mtlLoader.load(model[mtlName], function (materials) {
             materials.preload();

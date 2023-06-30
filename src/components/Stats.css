@@ -1,8 +1,8 @@
 .stats {
     position: absolute;
     margin-top: 2em;
-    width: 15em;
-    height: 400px;
+    width: fit-content;
+    min-width: 180px;
     left: -1px;
 
     background-color: rgba(10, 10, 10, 0.9);

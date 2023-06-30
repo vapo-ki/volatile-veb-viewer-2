@@ -10,16 +10,14 @@ export default function HeaderTab({ handleTabButton, model }) {
   const [left, setLeft] = useState({
     left: String(176 + model.id * 130 + "px"),
   });
-  console.log(model);
+
   useEffect(() => {
     
 
     canvas.initialize();
     canvas.animate();
 
-    loadModel(canvas.scene, model).then((res) => {
-      console.log("res: ", res);
-    });
+    loadModel(canvas.scene, model)
 
     if (model.name == "Cosmog") {
       canvas.camera.position.z = 1;

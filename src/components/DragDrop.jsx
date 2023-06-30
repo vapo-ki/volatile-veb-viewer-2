@@ -73,7 +73,6 @@ export default function DragDrop({ setModel, onExit }) {
     }
 
     getUnzippedFiles(file).then((files) => {
-      console.log(files);
       setModel(files)
     });
   };

@@ -29,7 +29,6 @@ export default function AnimFooter({ model, canvas }) {
   }, [currentAnimation]);
 
   function tellTime() {
-    console.log("los timos");
     if (!currentAnimation) return;
     if (!currentAnimation.isRunning()) return;
 

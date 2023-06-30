@@ -7,6 +7,7 @@ import Header from "./components/Header";
 import { getLocalModel, getModel } from './utils/HandleTabs'
 import AnimFooter from "./components/AnimFooter";
 import Stats from "./components/Stats";
+import Tutorial from "./components/Tutorial";
 
 const examples = [
   {
@@ -57,10 +58,11 @@ function App() {
 
   return (
     <>
+      <Tutorial />
       <Header handleTabButton={handleTabButton} handleAddButton={handleAddButton} modelList={modelList} />
       {showDrop && <DragDrop  setModel={handleDropButton} onExit={handleAddButton}/> }
-      <Stats model={liveModel}/>
-      <Menu object={liveModel}/>
+      <Stats model={liveModel} name={modelToShow}/>
+      <Menu object={liveModel} canvas={canvas}/>
       <AnimFooter model={liveModel} canvas={canvas} />
       <Viewer model={modelToShow} setModel={setLiveModel} setCanvas={setCanvas}/>
     </>

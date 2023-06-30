@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { GUI } from "dat.gui";
 import "./Menu.css";
-import { Vector3 } from "three";
+import * as THREE from "three";
 
-export default function Menu({ object }) {
+export default function Menu({ object, canvas }) {
   const [gui, setGui] = useState(null);
 
   useEffect(() => {
@@ -47,7 +47,11 @@ export default function Menu({ object }) {
       model.scale.set(nonZeroScale, nonZeroScale, nonZeroScale);
     }
 
-    const animation = menu.addFolder;
+    const environment = menu.addFolder("Environment");
+    var environmentParams =  {
+      color: 0xffffff
+    }
+    environment.addColor(environmentParams, 'color').onChange(function() {canvas.scene.background = new THREE.Color(environmentParams.color)})
 
     menu.open();
   }, [gui]);
