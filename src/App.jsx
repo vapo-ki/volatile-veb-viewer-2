@@ -4,9 +4,37 @@ import Menu from "./components/Menu";
 import DragDrop from "./components/DragDrop";
 import { useEffect, useState } from "react";
 import Header from "./components/Header";
-import { getLocalModel, getModel } from './utils/HandleTabs'
+import { getModel } from './utils/HandleTabs'
 import AnimFooter from "./components/AnimFooter";
 import Stats from "./components/Stats";
+
+function getLocalModel(modelId) {
+  const examples = [
+      {
+          name: "Calvin Freckle",
+          path: '/calvin_freckle/calvin_freckle_mcmurray_from_lackadaisy.glb',
+          type: "gltf"
+      },
+      {
+          name: "Cosmog",
+          path: '/cosmog.glb',
+          type: "glb"
+      },
+      {
+          name: "Cloud Station",
+          path: '/cloud_station.glb',
+          type: "glb"
+      }
+  ]
+
+  return {
+      local: true,
+      id: modelId,
+      name: examples[modelId].name,
+      type: examples[modelId].type,
+      path: examples[modelId].path
+  }
+}
 
 const examples = [
   {
