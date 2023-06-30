@@ -10,8 +10,9 @@ export default function AnimFooter({ model, canvas }) {
     max: 10,
     current: 0,
   });
-  const [animations, setAnimations] = useState({});
-  const [value, setValue] = useState("Select Animation");
+  const [animations, setAnimations] = useState([]);
+  const [interval, setTimeline] = useState();
+  const [value, setValue] = useState(null);
 
   useEffect(() => {
     if (!canvas) return;
@@ -19,10 +20,7 @@ export default function AnimFooter({ model, canvas }) {
 
   useEffect(() => {
     if (!currentAnimation) return;
-    console.log(currentAnimation);
-    const interval = setInterval(() => {
-      tellTime();
-    }, [60]);
+
     setSliderData({
       min: 0,
       max: currentAnimation.duration,
@@ -31,6 +29,7 @@ export default function AnimFooter({ model, canvas }) {
   }, [currentAnimation]);
 
   function tellTime() {
+    console.log("los timos");
     if (!currentAnimation) return;
     if (!currentAnimation.isRunning()) return;
 
@@ -54,7 +53,17 @@ export default function AnimFooter({ model, canvas }) {
       });
     });
     setAnimations(animationList);
-    setValue("Select Animation");
+    setValue(null);
+    setCurrentAnimation(null)
+    setSliderData({
+      min: 0,
+      max: 10,
+      current: 0,
+    });
+
+    if (!interval) return;
+    clearInterval(interval);
+    setInterval(null);
   }, [model]);
 
   const handlePlayAnimationButton = () => {
@@ -62,17 +71,36 @@ export default function AnimFooter({ model, canvas }) {
     if (currentAnimation.paused || !currentAnimation.isRunning()) {
       currentAnimation.paused = false;
       currentAnimation.play();
+
+      setTimeline(
+        setInterval(() => {
+          tellTime();
+        }),
+        [1]
+      );
     } else {
       currentAnimation.stop();
+
+      clearInterval(interval);
+      setTimeline(null);
     }
   };
 
   const handleSelectAnimation = (event) => {
+    if (currentAnimation) {
+      currentAnimation.stop();
+
+      clearInterval(interval);
+      setTimeline(null);
+    }
+
     setCurrentAnimation(canvas.mixer.clipAction(event.value));
-    setValue(event.value);
+    setValue(event);
   };
 
   function handleChangeSlider(event) {
+    if (!currentAnimation) return
+
     setSliderData({
       min: sliderData.min,
       max: sliderData.max,
@@ -89,29 +117,29 @@ export default function AnimFooter({ model, canvas }) {
         ...styles,
         backgroundColor: "#111",
         borderColor: "var(--bg-main)",
-        borderWidth: "2px"
-      }
+        borderWidth: "2px",
+      };
     },
     menu: (styles) => ({
       ...styles,
-      backgroundColor: "#111"
+      backgroundColor: "#111",
     }),
     option: (styles, { data, isDisabled, isFocused, isSelected }) => {
       return {
         ...styles,
-        backgroundColor:"#111",
-        color: '#FFF',
+        backgroundColor: "#111",
+        color: "#FFF",
         fontSize: "0.8em",
 
         "&:hover": {
           borderColor: "red",
-          color: "#df7126"
-        }
+          color: "#df7126",
+        },
       };
     },
     singleValue: (styles) => ({
       ...styles,
-      color: "white"
+      color: "white",
     }),
   };
 
@@ -124,6 +152,8 @@ export default function AnimFooter({ model, canvas }) {
           options={animations}
           onChange={handleSelectAnimation}
           styles={colourStyles}
+          placeholder={"Select Animation..."}
+          value={value}
         />
         <button className="playButton" onClick={handlePlayAnimationButton}>
           Play

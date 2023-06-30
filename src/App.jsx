@@ -6,11 +6,20 @@ import { useEffect, useState } from "react";
 import Header from "./components/Header";
 import { getLocalModel, getModel } from './utils/HandleTabs'
 import AnimFooter from "./components/AnimFooter";
+import Stats from "./components/Stats";
 
 const examples = [
   {
     id: 0,
     name: "Calvin Freckle",
+  },
+  {
+    id: 1,
+    name: "Cosmog"
+  },
+  {
+    id: 2,
+    name: "Cloud Station"
   }
 ]
 
@@ -50,6 +59,7 @@ function App() {
     <>
       <Header handleTabButton={handleTabButton} handleAddButton={handleAddButton} modelList={modelList} />
       {showDrop && <DragDrop  setModel={handleDropButton} onExit={handleAddButton}/> }
+      <Stats model={liveModel}/>
       <Menu object={liveModel}/>
       <AnimFooter model={liveModel} canvas={canvas} />
       <Viewer model={modelToShow} setModel={setLiveModel} setCanvas={setCanvas}/>

@@ -12,7 +12,7 @@
 
 .dg .main {
     border: 1px var(--bg-main) solid;
-    background-color: #111;
+    background-color: rgba(10, 10, 10, 0.9) ;
 }
 
 .dg {
@@ -36,7 +36,7 @@
 }
 
 .dg .cr {
-    background-color: #111 !important;
+    background-color: rgba(10, 10, 10,0) !important;
     border: none !important;
     padding-left: 4px !important;
     width: 100% !important;

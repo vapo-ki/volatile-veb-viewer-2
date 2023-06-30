@@ -1,7 +1,6 @@
 import "./Viewer.css";
 import { useEffect, useState } from "react";
 import ViewerInit from "./ViewerInit";
-import "./Viewer.css";
 import { loadModel } from "../utils/Loader";
 import * as THREE from 'three'
 

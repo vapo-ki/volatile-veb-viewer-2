@@ -4,6 +4,7 @@ import HeaderTab from "./HeaderTab";
 import HeaderTabAdd from "./HeaderTabAdd";
 
 export default function Header({handleTabButton, handleAddButton, modelList}) {
+  console.log(modelList);
   return (
     <>
       <div className="top-left-color" />
@@ -17,7 +18,7 @@ export default function Header({handleTabButton, handleAddButton, modelList}) {
         </div>
         <div className="header-tabs-container">
           {modelList.map(model => 
-            <HeaderTab key={model.id} handleTabButton={() => handleTabButton(model.id)} modelName={model.name} />
+            <HeaderTab key={model.id} handleTabButton={() => handleTabButton(model.id)} model={model} />
           )}
           <HeaderTabAdd handleAddButton={handleAddButton}/>
         </div>

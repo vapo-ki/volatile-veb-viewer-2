@@ -1,14 +1,15 @@
 import * as THREE from "three";
 import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
-import Stats from "three/examples/jsm/libs/stats.module";
 
 export default class ViewerInit {
-  constructor(canvasId) {
+  constructor(canvasId, isTab, isCosmo=false) {
     this.scene = undefined;
     this.camera = undefined;
     this.renderer = undefined;
 
+    this.isCosmo = isCosmo;
     this.canvasId = canvasId;
+    this.isTab = isTab;
     this.stats = undefined;
     this.controls = undefined;
 
@@ -24,22 +25,46 @@ export default class ViewerInit {
   initialize() {
     //Base
     this.scene = new THREE.Scene();
-    this.camera = new THREE.PerspectiveCamera(
-      90,
-      window.innerWidth / window.innerHeight,
-      0.001,
-      100
-    );
+
+    if (this.isTab) {
+      this.camera = new THREE.PerspectiveCamera(25, 96 / 78, 0.001, 100);
+    } else {
+      this.camera = new THREE.PerspectiveCamera(
+        75,
+        window.innerWidth / window.innerHeight,
+        0.001,
+        100
+      );
+    }
+
     const canvas = document.getElementById(this.canvasId);
     this.renderer = new THREE.WebGLRenderer({ canvas, antialias: true });
 
-    this.renderer.setSize(window.innerWidth, window.innerHeight);
-    this.camera.position.z = 7;
+    if (this.isTab) {
+      this.renderer.setSize(96, 78);
+    } else {
+      this.renderer.setSize(window.innerWidth, window.innerHeight);
+    }
+
+    if (this.isTab) {
+      if (this.isCosmo) {
+        this.camera.position.z = 4;
+        this.camera.position.y = 1;
+      }
+      this.camera.position.z = 6;
+    this.camera.position.y = 1.5;
+    } else {
+      this.camera.position.z = 7;
     this.camera.position.y = 5;
+    }
+
+    
     document.body.appendChild(this.renderer.domElement);
 
     //Window Resize
-    window.addEventListener("resize", () => this.onWindowResize(), false);
+    if (!this.isTab) {
+      window.addEventListener("resize", () => this.onWindowResize(), false);
+    }
 
     //Lighting
     this.ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -52,39 +77,30 @@ export default class ViewerInit {
     this.scene.add(this.spotLight);
 
     //Grid
-    const gridHelper = new THREE.GridHelper(20, 20);
-    this.scene.add(gridHelper);
+    if (!this.isTab) {
+      const gridHelper = new THREE.GridHelper(20, 20);
+      this.scene.add(gridHelper);
+    }
+
     //Controls
-    this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    if (!this.isTab) {
+      this.controls = new OrbitControls(this.camera, this.renderer.domElement);
+    }
 
     this.clock = new THREE.Clock();
-    this.mixer = new THREE.AnimationMixer()
-
-    //FPS
-    //this.stats = Stats();
-    //document.body.appendChild(this.stats.dom);
-
-    /* this.renderer.domElement.addEventListener(
-      "pointermove",
-      this.onMouseEnter,
-      false
-    );
-    this.renderer.domElement.addEventListener(
-      "pointerleave",
-      this.onMouseExit,
-      false
-    ); */
+    this.mixer = new THREE.AnimationMixer();
   }
 
   animate() {
-    //this.stats.update();
-    this.controls.update();
+    if (!this.isTab) {
+      this.controls.update();
+    }
 
     this.renderer.render(this.scene, this.camera);
     window.requestAnimationFrame(this.animate.bind(this));
 
     const delta = this.clock.getDelta();
-		this.mixer.update( delta );
+    this.mixer.update(delta);
   }
 
   onWindowResize() {
